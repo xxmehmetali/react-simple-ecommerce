@@ -7,7 +7,8 @@ import { toast } from 'react-toastify';
 
 export default function CartDetail() {
 
-  const { cartItems } = useSelector(state => state.cart);
+  // const { cartItems } = useSelector(state => state.cart);
+  const { cartItems } = []
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
@@ -16,10 +17,10 @@ export default function CartDetail() {
 
   const handleRemoveFromCart = (product) => {
     const foundProduct = cartItems.filter(cartItem => cartItem.product===product)
-    if(foundProduct.length > 0){
-      dispatch(removeFromCart(product))
-      toast.error("Product Removed : " + product.title)
-    }
+    // if(foundProduct.length > 0){
+    //   dispatch(removeFromCart(product))
+    //   toast.error("Product Removed : " + product.title)
+    // }
   }
 
   return (

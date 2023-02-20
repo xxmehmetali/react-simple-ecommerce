@@ -4,31 +4,31 @@ import { Link, NavLink } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import ProductService from '../services/productService';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart, removeFromProduct } from '../store/actions/cartActions';
+import { addToCart, removeFromCart } from '../features/cartSlice';
 import { toast } from 'react-toastify';
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
-  const { cartItems } = useSelector(state => state.cart);
-
+  // const { cartItems } = useSelector(state => state.cart);
+  const cartItems = useSelector((state) => state.cart.cartItems);
   // eğer useEffect te [] kullanmazsan service e sürekli istek atar (network tabından bakabilirsin)
   useEffect(() => {
     let productService = new ProductService();
     productService.getProducts().then(result => setProducts(result.data.products))
   }, [])
 
-  // function handleAddToCart(product){
-  //   dispatch(addToCart(), product);
-  // }
+  // const {data} = useGetCategoriesQuery();
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
     toast.success("Product Added : " + product.title)
+    console.log("asd")
+    // console.log(data)
+
   }
 
   const handleRemoveFromCart = (product) => {
-    const foundCartItem = cartItems.filter(cartItem => cartItem.product===product)
-    console.log(foundCartItem)
+    const foundCartItem = cartItems.filter(cartItem => cartItem.product.id==product.id)
     if(foundCartItem.length > 0){
       dispatch(removeFromCart(product))
       toast.error("Product Removed : " + product.title)

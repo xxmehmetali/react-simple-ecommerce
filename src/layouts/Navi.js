@@ -13,7 +13,7 @@ import CartDetail from '../pages/CartDetail';
 
 export default function Navi() {
     const { cartItems } = useSelector(state => state.cart);
-
+    // const { cartItems } = []
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const navigate = useNavigate();
 
@@ -37,10 +37,10 @@ export default function Navi() {
                         <Nav.Link href="#pricing">Pricing</Nav.Link>
                         <Link to="/cart">Go to Cart</Link>
                         {
-                            cartItems.length>0&&
-                            <Nav.Link href="#cartSummary"><CartSummary /></Nav.Link>
+                            // cartItems.length>0&&
+                            // <Nav.Link href="#cartSummary"><CartSummary /></Nav.Link>
                         }
-                        
+                        <CartSummary />
                     </Nav>
 
                     
