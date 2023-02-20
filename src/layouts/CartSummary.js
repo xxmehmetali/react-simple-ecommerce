@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux';
 import { Badge } from 'react-bootstrap';
 
 export default function CartSummary() {
-  const { cartItems } = useSelector(state => state.cart);
-
+  const cartItems  = useSelector(state => state.cart.cartItems);
   return (
     <div >
       <Dropdown>
@@ -15,10 +14,13 @@ export default function CartSummary() {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          {
-            cartItems.map((cartItem) => (
-              <Dropdown.Item href="#/action-1">{cartItem.product.title} <Badge bg="secondary">{cartItem.quantity}</Badge></Dropdown.Item>
-            ))
+          {cartItems.length > 0 &&
+cartItems.map((cartItem) => (
+  <Dropdown.Item href="#/action-1">{cartItem.product.title} <Badge bg="secondary">{cartItem.quantity}</Badge></Dropdown.Item>
+))
+           
+
+            
           }
 
         </Dropdown.Menu>
