@@ -2,25 +2,27 @@ import React from 'react'
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom"; 
-import { addToCart, removeFromCart } from '../store/actions/cartActions';
+
 import { toast } from 'react-toastify';
+import { addToCart, removeFromCart } from '../features/cartSlice';
 
 export default function CartDetail() {
 
-  // const { cartItems } = useSelector(state => state.cart);
-  const { cartItems } = []
+  const cartItems  = useSelector(state => state.cart.cartItems);
+  // const { cartItems } = []
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
+    toast.success("Product Added : " + product.title)
   }
 
   const handleRemoveFromCart = (product) => {
-    const foundProduct = cartItems.filter(cartItem => cartItem.product===product)
-    // if(foundProduct.length > 0){
-    //   dispatch(removeFromCart(product))
-    //   toast.error("Product Removed : " + product.title)
-    // }
+    const foundCartItem = cartItems.filter(cartItem => cartItem.product.id==product.id)
+    if(foundCartItem.length > 0){
+      dispatch(removeFromCart(product))
+      toast.error("Product Removed : " + product.title)
+    }
   }
 
   return (

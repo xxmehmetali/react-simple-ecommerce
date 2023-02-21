@@ -5,17 +5,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { configureStorex } from './store/configureStore';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { store } from './app/store';
+import { ApiProvider } from '@reduxjs/toolkit/query/react';
+import { apiSlice } from './features/api/apiSlice';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-// const store = configureStorex();
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <BrowserRouter><App /></BrowserRouter>
+    {/* APİ PROVİDER GEREKSİZ */}
+    {/* <ApiProvider api={apiSlice}> */}
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    {/* </ApiProvider> */}
   </Provider>
 
   // </React.StrictMode>

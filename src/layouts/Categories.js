@@ -1,22 +1,30 @@
 import React from 'react'
 import { Card, ListGroup } from 'react-bootstrap';
+import { useGetCategoriesQuery } from '../features/api/apiSlice';
 
 export default function Categories() {
-    return (
-        // <Container>
-            
+
+  const { data : categoriesData } = useGetCategoriesQuery();
+  const categories = categoriesData ?? [];
+
+  return (
+
+    <div>
+      <Card style={{ width: '18rem' }}>
+        <ListGroup variant="flush">
+          {
+            categories.map((category) => (
+              <ListGroup.Item>{category}</ListGroup.Item>
+            ))
+
+
+          }
                 
-               
-            <div>
-    <Card style={{ width: '18rem' }}>
-      <Card.Header>Featured</Card.Header>
-      <ListGroup variant="flush">
-        <ListGroup.Item>Cras justo odio</ListGroup.Item>
-        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-      </ListGroup>
-    </Card>
-            </div>
-        // </Container>
-    )
+
+
+
+        </ListGroup>
+      </Card>
+    </div>
+  )
 }
