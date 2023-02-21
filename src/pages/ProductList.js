@@ -6,25 +6,21 @@ import ProductService from '../services/productService';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../features/cartSlice';
 import { toast } from 'react-toastify';
+import { useGetCategoriesQuery, useGetProductsQuery } from '../features/api/apiSlice';
 
 export default function ProductList() {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
-  // const { cartItems } = useSelector(state => state.cart);
   const cartItems = useSelector((state) => state.cart.cartItems);
-  // eğer useEffect te [] kullanmazsan service e sürekli istek atar (network tabından bakabilirsin)
-  useEffect(() => {
-    let productService = new ProductService();
-    productService.getProducts().then(result => setProducts(result.data.products))
-  }, [])
 
-  // const {data} = useGetCategoriesQuery();
+  // productsData?.products dememizin sebebi productsData daha oluşmamışken undefined oluyor. 
+  // soru işareti koymazsak hata veriyor, soru işareti ile varsa erişmeye çalışıyor yoksa erişmiyor
+  const { data : productsData } = useGetProductsQuery();
+  const products = productsData?.products ?? []
+
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-    toast.success("Product Added : " + product.title)
-    console.log("asd")
-    // console.log(data)
-
+    toast.success("Product Added : " + product.title)    
   }
 
   const handleRemoveFromCart = (product) => {
@@ -51,7 +47,7 @@ export default function ProductList() {
         <tbody>
           {
             products.map(product => (
-              <tr>
+              <tr key={product.id}>
                 <td>{product.id}</td>
                 <td>
                   <Link to={"/products/" + product.id}>

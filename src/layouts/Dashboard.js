@@ -23,7 +23,6 @@ export default function Dashboard() {
                             <Route path='/products/:productId' element={<ProductDetail/>}/>
                             <Route path='/cart' element={<CartDetail/>}/>
                         </Routes>
-                        {/* <ProductList /> */}
                     </Col>
                 </Row>
             </Container>
